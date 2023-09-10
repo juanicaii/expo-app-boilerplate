@@ -6,17 +6,24 @@ import React from "react";
 export { ErrorBoundary } from "expo-router";
 import { PaperProvider } from "react-native-paper";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import useOnMount from "../hooks/useMounted";
+import LogService from "../services/LogService";
 
 export const unstable_settings = {
 	initialRouteName: "index",
 };
 
 const queryClient = new QueryClient();
+export const logService = new LogService();
 
 export default function RootLayout() {
 	const [loaded, error] = useFonts({
 		SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
 		...FontAwesome.font,
+	});
+
+	useOnMount(() => {
+		logService.init();
 	});
 
 	useDidUpdate(() => {
@@ -39,7 +46,6 @@ function RootLayoutNav() {
 				<Stack>
 					<Stack.Screen name="index" options={{ headerShown: false }} />
 					<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-					<Stack.Screen name="modal" options={{ presentation: "modal" }} />
 				</Stack>
 			</QueryClientProvider>
 		</PaperProvider>

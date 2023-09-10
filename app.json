@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Fleetbooster",
+    "name": "expo-boilerplate-app",
     "slug": "app-rn",
     "version": "1.0.0",
     "orientation": "portrait",
